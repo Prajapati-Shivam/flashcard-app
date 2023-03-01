@@ -8,6 +8,8 @@ function App() {
   const [categories, setCategories] = useState([])
 
   const categoryEl = useRef();
+  const typeEl = useRef();
+  const difficultyEl = useRef();
   const amountEl = useRef();
 
   useEffect(() => {
@@ -31,7 +33,9 @@ function App() {
       .get('https://opentdb.com/api.php', {
         params: {
           amount: amountEl.current.value,
-          category: categoryEl.current.value
+          category: categoryEl.current.value,
+          difficulty: difficultyEl.current.value,
+          type: typeEl.current.value
         }
       })
       .then(res => {
@@ -70,6 +74,23 @@ function App() {
             {categories.map(category => {
               return <option value={category.id} key={category.id}>{category.name}</option>
             })}
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="difficulty">Difficulty</label>
+          <select id="difficulty" ref={difficultyEl}>
+            <option value="">Any difficulty</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="type">Select type</label>
+          <select id="type" ref={typeEl}>
+            <option value="">Any type</option>
+            <option value="multiple">Multiple Choice</option>
+            <option value="boolean">True / False</option>
           </select>
         </div>
         <div className="form-group">
